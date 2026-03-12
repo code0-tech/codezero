@@ -1,10 +1,6 @@
 # CodeZero
 
-[![Discord](https://img.shields.io/discord/1173625923724124200?label=Discord&logo=discord&style=for-the-badge)](https://discord.com/invite/AyMB7DtA7P)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/codezero.tech/)
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white&style=for-the-badge)](https://www.youtube.com/@CodeZeroBuild)
-
-![CodeZero Thumbnail](./images/CodeZero_Thumbnail.png)
+ ![CodeZero Thumbnail](./images/CodeZero_Thumbnail.png)
 
 ## What is CodeZero?
 
@@ -35,6 +31,7 @@ A "flow" in CodeZero is a sequence of connected nodes, each representing a step 
 - **Flow Type:** Defines the structure, input, and output types for a flow.
 - **Parameter:** Nodes have parameters that define their input and configuration.
 - **Action:** Plugin that extends a runtime with new flow types, nodes, and triggers.
+
 
 ## Contribution & Community
 
