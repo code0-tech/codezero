@@ -1,6 +1,10 @@
 # CodeZero
 
- ![CodeZero Thumbnail](./images/CodeZero_Thumbnail.png)
+[![Discord](https://img.shields.io/discord/1173625923724124200?label=Discord&logo=discord&style=for-the-badge)](https://discord.com/invite/AyMB7DtA7P)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/codezero.tech/)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white&style=for-the-badge)](https://www.youtube.com/@CodeZeroBuild)
+
+![CodeZero Thumbnail](./images/CodeZero_Thumbnail.png)
 
 ## What is CodeZero?
 
