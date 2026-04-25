@@ -10,6 +10,7 @@ services:
     restart: "no"
     profiles:
       - ide
+      - runtime
 
   postgres:
     image: postgres:16.1
@@ -38,6 +39,7 @@ services:
     environment:
       INITIAL_ROOT_PASSWORD: ${INITIAL_ROOT_PASSWORD}
       INITIAL_ROOT_MAIL: ${INITIAL_ROOT_MAIL}
+      INITIAL_RUNTIME_TOKEN: ${INITIAL_RUNTIME_TOKEN}
     volumes:
       - generated-configs:/tmp/generated-configs:ro
     entrypoint: |
@@ -93,7 +95,7 @@ services:
       - ide
 
   nginx:
-    image: nginx:1.29.5-alpine-slim
+    image: nginx:1.30.0-alpine-slim
     depends_on:
       config-generator:
         condition: service_completed_successfully
@@ -123,12 +125,16 @@ services:
     image: nats:2.11.9
     command:
       - -js
+    restart: unless-stopped
     profiles:
       - runtime
 
   aquila:
     depends_on:
-      - nats
+      config-generator:
+        condition: service_completed_successfully
+      nats:
+        condition: service_started
     image: ${IMAGE_REGISTRY}/aquila:${IMAGE_TAG}
     environment:
       MODE: dynamic
@@ -137,6 +143,14 @@ services:
       GRPC_HOST: 0.0.0.0
       SAGITTARIUS_URL: "${AQUILA_SAGITTARIUS_URL}"
       RUNTIME_TOKEN: "${AQUILA_SAGITTARIUS_TOKEN}"
+    volumes:
+      - generated-configs:/tmp/generated-configs:ro
+    entrypoint: |
+      sh -c "
+        cp /tmp/generated-configs/aquila.service.configuration.json /service.configuration.json
+        exec /aquila
+      "
+    restart: unless-stopped
     profiles:
       - runtime
 
@@ -150,6 +164,8 @@ services:
       AQUILA_URL: 'http://aquila:8081'
       NATS_URL: nats://nats:4222
       DEFINITION_PATH: '/definitions'
+      AQUILA_TOKEN: "${TAURUS_AQUILA_TOKEN}"
+    restart: unless-stopped
     profiles:
       - runtime
 
@@ -165,8 +181,10 @@ services:
       DEFINITION_PATH: '/definitions'
       HTTP_SERVER_PORT: 8084
       HTTP_SERVER_HOST: "0.0.0.0"
+      AQUILA_TOKEN: "${DRACO_REST_AQUILA_TOKEN}"
     ports:
       - "${DRACO_REST_PORT}:8084"
+    restart: unless-stopped
     profiles:
       - runtime
 
@@ -180,6 +198,8 @@ services:
       NATS_URL: nats://nats:4222
       NATS_BUCKET: 'flow_store'
       DEFINITION_PATH: '/definitions'
+      AQUILA_TOKEN: "${DRACO_CRON_AQUILA_TOKEN}"
+    restart: unless-stopped
     profiles:
       - runtime
 
