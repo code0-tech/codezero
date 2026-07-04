@@ -13,13 +13,13 @@ services:
       - runtime
 
   postgres:
-    image: postgres:16.1
+    image: postgres:18.3
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 10s
@@ -88,18 +88,55 @@ services:
     profiles:
       - ide
 
+  sagittarius-rails-cable:
+    image: ${IMAGE_REGISTRY}/sagittarius:${IMAGE_TAG}-${IMAGE_EDITION}
+    depends_on:
+      sagittarius-rails-web:
+        condition: service_healthy
+    volumes:
+      - generated-configs:/tmp/generated-configs:ro
+    entrypoint: |
+      sh -c "
+        cp /tmp/generated-configs/sagittarius.sagittarius.yml config/sagittarius.yml
+        exec bin/docker-entrypoint bundle exec puma config.cable.ru
+      "
+    restart: unless-stopped
+    profiles:
+      - ide
+
   sculptor:
     image: ${IMAGE_REGISTRY}/sculptor:${IMAGE_TAG}-${IMAGE_EDITION}
     restart: unless-stopped
     profiles:
       - ide
 
+  velorum:
+    image: ${IMAGE_REGISTRY}/velorum:${IMAGE_TAG}
+    depends_on:
+      config-generator:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    environment:
+      SECURITY_TOKEN: ${VELORUM_JWT_SECRET}
+    volumes:
+      - generated-configs:/tmp/generated-configs:ro
+      - ./velorum.few_shots_external.configuration.json:/velorum/few_shots_external.configuration.json:ro
+    entrypoint: |
+      sh -c "
+        cp /tmp/generated-configs/velorum.models.configuration.json models.configuration.json
+        exec uv run main.py
+      "
+    profiles:
+      - ide_velorum
+
   nginx:
-    image: nginx:1.30.0-alpine-slim
+    image: nginx:1.31.1-alpine-slim
     depends_on:
       config-generator:
         condition: service_completed_successfully
       sagittarius-rails-web:
+        condition: service_started
+      sagittarius-rails-cable:
         condition: service_started
       sagittarius-grpc:
         condition: service_started
@@ -122,7 +159,7 @@ services:
       - ide
 
   nats:
-    image: nats:2.11.9
+    image: nats:2.14.1
     command:
       - -js
     restart: unless-stopped
@@ -143,6 +180,7 @@ services:
       GRPC_HOST: 0.0.0.0
       SAGITTARIUS_URL: "${AQUILA_SAGITTARIUS_URL}"
       RUNTIME_TOKEN: "${AQUILA_SAGITTARIUS_TOKEN}"
+      SAGITTARIUS_UNARY_RPC_TIMEOUT_SECS: "${SAGITTARIUS_UNARY_RPC_TIMEOUT_SECS}"
     volumes:
       - generated-configs:/tmp/generated-configs:ro
     entrypoint: |
@@ -165,6 +203,8 @@ services:
       NATS_URL: nats://nats:4222
       DEFINITION_PATH: '/definitions'
       AQUILA_TOKEN: "${TAURUS_AQUILA_TOKEN}"
+      AQUILA_GRPC_CONNECT_TIMEOUT_SECS: "${AQUILA_GRPC_CONNECT_TIMEOUT_SECS}"
+      AQUILA_GRPC_REQUEST_TIMEOUT_SECS: "${AQUILA_GRPC_REQUEST_TIMEOUT_SECS}"
     restart: unless-stopped
     profiles:
       - runtime
@@ -181,7 +221,11 @@ services:
       DEFINITION_PATH: '/definitions'
       HTTP_SERVER_PORT: 8084
       HTTP_SERVER_HOST: "0.0.0.0"
+      EXTERNAL_HTTP_SERVER_PORT: "${DRACO_REST_PORT}"
+      EXTERNAL_HTTP_SERVER_HOST: "${DRACO_REST_HOST}"
       AQUILA_TOKEN: "${DRACO_REST_AQUILA_TOKEN}"
+      AQUILA_GRPC_CONNECT_TIMEOUT_SECS: "${AQUILA_GRPC_CONNECT_TIMEOUT_SECS}"
+      AQUILA_GRPC_REQUEST_TIMEOUT_SECS: "${AQUILA_GRPC_REQUEST_TIMEOUT_SECS}"
     ports:
       - "${DRACO_REST_PORT}:8084"
     restart: unless-stopped
@@ -199,6 +243,8 @@ services:
       NATS_BUCKET: 'flow_store'
       DEFINITION_PATH: '/definitions'
       AQUILA_TOKEN: "${DRACO_CRON_AQUILA_TOKEN}"
+      AQUILA_GRPC_CONNECT_TIMEOUT_SECS: "${AQUILA_GRPC_CONNECT_TIMEOUT_SECS}"
+      AQUILA_GRPC_REQUEST_TIMEOUT_SECS: "${AQUILA_GRPC_REQUEST_TIMEOUT_SECS}"
     restart: unless-stopped
     profiles:
       - runtime
