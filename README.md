@@ -4,7 +4,7 @@
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/codezero.tech/)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white&style=for-the-badge)](https://www.youtube.com/@CodeZeroBuild)
 
-![CodeZero Thumbnail](./images/CodeZero_Thumbnail.png)
+![CodeZero Thumbnail](./images/Thumbnail.png)
 
 ## What is CodeZero?
 
