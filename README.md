@@ -1,13 +1,15 @@
-<div align="center" style="margin: 5% 20%">
+<br/>
+<br/>
+<div align="center">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="images/Codezero_Logo_White.svg">
   <img src="images/Codezero_Logo.svg" alt="CodeZero" width="200">
 </picture>
 
-### Every great idea starts at zero. Start with CodeZero.
+### Every great idea starts at zero. <br/> Start with CodeZero.
 
-**The open-source platform for building automations visually. Powered by AI, running wherever you want.**
+**The open-source platform for building automations visually.<br/>Powered by AI, running wherever you want.**
 
 [![Website](https://img.shields.io/badge/codezero.build-000000?logo=googlechrome&logoColor=white&style=for-the-badge)](https://codezero.build)
 [![Docs](https://img.shields.io/badge/Docs-4B32C3?logo=readthedocs&logoColor=white&style=for-the-badge)](https://docs.codezero.build)
@@ -17,7 +19,8 @@
 
 </div>
 
-<hr/>
+<br/>
+<br/>
 
 ## What is CodeZero?
 
@@ -25,7 +28,7 @@ CodeZero lets you build **flows** on a visual canvas instead of writing boilerpl
 
 Whether you want to glue two services together, expose your own API, or automate a whole business process: if you can sketch it, you can ship it.
 
-## ✨ Build flows with AI
+## Build flows with AI
 
 Don't start from a blank canvas. Describe what you want or pick a smart template, and CodeZero builds the flow for you.
 
