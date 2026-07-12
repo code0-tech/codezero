@@ -1,50 +1,112 @@
-# CodeZero
+<div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/Codezero_Logo_White.svg">
+  <img src="images/Codezero_Logo.svg" alt="CodeZero" width="380">
+</picture>
+
+### Every great idea starts at zero. Start with CodeZero.
+
+**The open-source platform for building automations visually. Powered by AI, running wherever you want.**
+
+[![Website](https://img.shields.io/badge/codezero.build-000000?logo=googlechrome&logoColor=white&style=for-the-badge)](https://codezero.build)
+[![Docs](https://img.shields.io/badge/Docs-4B32C3?logo=readthedocs&logoColor=white&style=for-the-badge)](https://docs.codezero.build)
 [![Discord](https://img.shields.io/discord/1173625923724124200?label=Discord&logo=discord&style=for-the-badge)](https://discord.com/invite/AyMB7DtA7P)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/codezero.tech/)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white&style=for-the-badge)](https://www.youtube.com/@CodeZeroBuild)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/codezero.tech/)
 
-![CodeZero Thumbnail](./images/Thumbnail.png)
+</div>
 
 ## What is CodeZero?
 
-CodeZero is an open-source platform for building, managing, and automating flows, as well as organizing projects, organizations, roles, members, and users. It enables comprehensive process automation and organizational management in a scalable, modular system.
+CodeZero lets you build **flows** on a visual canvas instead of writing boilerplate code. A flow can be an automation, an integration, or entire backend logic. Connect a trigger, chain your logic node by node, hit run. That's it.
 
-A "flow" in CodeZero is a sequence of connected nodes, each representing a step in a process. Flows can be used to automate business logic, data processing, integrations, and more. Projects and organizations provide structure and access control, while roles and members enable fine-grained permissions and collaboration.
+Whether you want to glue two services together, expose your own API, or automate a whole business process: if you can sketch it, you can ship it.
 
-## Architecture & Infrastructure
+## ✨ Build flows with AI
 
-- **Frontend (sculptor):** The main user interface, built with Next.js and React. Users create and manage flows, projects, organizations, and more. Sculptor communicates directly with the backend service.
-- **Backend (sagittarius):** Central service for data storage, orchestration, and validation. All data (flows, projects, organizations, users, etc.) is persisted here. Sculptor communicates exclusively with Sagittarius.
-- **Runtime Block:**
-  - **Aquila:** Gateway for a runtime. Manages connections, receives triggers, and coordinates execution.
-  - **Taurus:** Executes flows. Contains all standard functions and data types. Highly scalable and can be extended with custom logic.
-  - **Draco:** Adapter for external requests (e.g., HTTP, MQTT). Triggers executions in the runtime.
-  - **Actions & Action SDK:** Plugin system for extending runtimes. Actions can define new flow types, nodes, and triggers. They connect to Aquila and can be developed independently.
-- **Runtimes:** Any number of runtime blocks can connect to Sagittarius. Each service (Aquila, Taurus, Draco) is individually scalable. This allows for hybrid setups: use the frontend in the cloud and connect your own local runtimes for self-hosting and data sovereignty.
+Don't start from a blank canvas. Describe what you want or pick a smart template, and CodeZero builds the flow for you.
 
-## Key Concepts
+![Start your automation with a prompt](images/CodeZero_Project_Overview.png)
 
-- **Project:** Workspace for organizing flows, resources, and settings.
-- **Organization:** Collection of projects and users, representing a company or team.
-- **Role:** Defines permissions and access rights for members.
-- **Member:** User assigned to a project or organization with a specific role.
-- **User:** Individual account in the system.
-- **Flow:** Directed graph of nodes, representing a process or automation. Flows have settings to control their behavior.
-- **Node:** An individual step in a flow, with parameters and logic.
-- **Flow Type:** Defines the structure, input, and output types for a flow.
-- **Parameter:** Nodes have parameters that define their input and configuration.
-- **Action:** Plugin that extends a runtime with new flow types, nodes, and triggers.
+And it doesn't stop at generation. You can refine, extend, or rewrite any part of your flow with a single prompt, right on the canvas.
 
+![Editing a flow with AI](images/CodeZero_AI.gif)
 
-## Contribution & Community
+Bring your own model: plug in OpenAI, OpenRouter, or any compatible provider and choose which models power your workspace.
 
-CodeZero is modular and extensible. You can define new flow types, nodes, roles, organizational structures, and extend runtimes with Actions. Contributions are welcome—join the community to help improve process automation and organizational management.
+## 🧩 What can you build?
 
-## License
+- **Integrations:** New GitHub issue? Post it to Discord. New Shopify order? Create the DHL shipment automatically.
+- **Your own APIs:** Expose any flow as an HTTP endpoint and use CodeZero as a visual backend.
+- **Scheduled jobs:** Run flows on a cron schedule for reports, syncs, and cleanups.
+- **Business processes:** Model multi-step logic with full control over data, branching, and error handling.
 
-The licensing for CodeZero and its components may vary. Please refer to the LICENSE file(s) in each subproject for details. Not all components are under the MIT license, and some restrictions may apply.
+## 🚀 Why CodeZero?
+
+| | |
+|---|---|
+| 🎨 **Visual flow editor** | Build logic as a graph of nodes that stays readable, debuggable, and shareable with your team. |
+| 🤖 **AI-assisted building** | Generate and edit flows with natural language, directly on the canvas. |
+| ⚡ **Triggers built in** | HTTP/webhook and cron triggers come out of the box. Plugins add more. |
+| 🏠 **Your data, your infrastructure** | Fully self-hostable. Or run hybrid: IDE in the cloud, runtimes on your own hardware. Your data never leaves your network. |
+| 📈 **Scales with you** | Every runtime component scales independently, from a single box to a fleet. |
+| 🔌 **Extensible** | Extend runtimes with plugins that add new nodes, flow types, and triggers. |
+| 👥 **Built for teams** | Organizations, projects, roles, and fine-grained permissions included. |
+
+## 👥 Made for teams, not just tinkerers
+
+Structure your work in projects and organizations, and invite your team into a shared workspace.
+
+![Workspace with projects and members](images/CodeZero_Workspace_Overview.png)
+
+Control exactly who can do what. Role templates cover the common setups, and fine-grained permissions handle everything else.
+
+![Role templates and fine-grained permissions](images/CodeZero_Workspace_Role_Permissions.png)
+
+## 🏁 Getting started
+
+All you need is [Docker](https://docs.docker.com/get-docker/). This repository contains the official releases and the Docker Compose setup:
+
+```bash
+git clone https://github.com/code0-tech/codezero.git
+cd codezero/docker-compose
+
+# adjust secrets & settings (ports, AI models, ...) in .env, then:
+docker compose up -d
+```
+
+Open [http://localhost](http://localhost) and log in with the initial credentials from your `.env` (default: `root@code0.tech` / `root`).
+
+> [!TIP]
+> Everything is configured through `docker-compose/.env`: which components to run (`COMPOSE_PROFILES`), TLS, ports, and the AI models available in the editor. **Change the default secrets before exposing anything publicly.**
+
+For detailed guides, head over to the [documentation](https://docs.codezero.build).
+
+## 💬 Community
+
+CodeZero is open source and built in the open. Join us:
+
+- 💜 [Discord](https://discord.com/invite/AyMB7DtA7P): ask questions, share flows, talk to the team
+- 📚 [Docs](https://docs.codezero.build): guides and reference documentation
+- 🛠️ [GitHub](https://github.com/code0-tech): all components, issues, and contributions
+- 📺 [YouTube](https://www.youtube.com/@CodeZeroBuild): devlogs and product updates
+
+Contributions are welcome, from new plugins and nodes to docs and bug reports. The [contributing guide](CONTRIBUTING.md) shows you where to start.
+
+## 📄 License
+
+Licensing varies per component. See the [LICENSE](LICENSE) file in this repository and in each subproject for details.
 
 ---
 
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/CodeZero_Icon_White.svg">
+  <img src="images/CodeZero_Icon.svg" alt="CodeZero icon" width="48">
+</picture>
+
 *Made with ❤️ by the CodeZero community*
+
+</div>
