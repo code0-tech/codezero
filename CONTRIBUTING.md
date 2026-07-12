@@ -57,7 +57,7 @@ You can extend CodeZero without touching any core repository. Plugins (actions) 
 
 ## Community
 
-Be respectful and constructive. We want CodeZero to be a welcoming project for everyone.
+Be respectful and constructive. We want CodeZero to be a welcoming project for everyone. Our [Code of Conduct](CODE_OF_CONDUCT.md) applies to all community spaces.
 
 - 💜 [Discord](https://discord.com/invite/AyMB7DtA7P): ask questions and talk to the team
 - 📚 [Docs](https://docs.codezero.build): guides and reference documentation
