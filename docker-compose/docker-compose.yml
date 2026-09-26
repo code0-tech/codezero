@@ -213,6 +213,8 @@ services:
     volumes:
       - generated-configs:/tmp/generated-configs:ro
     restart: unless-stopped
+    ports:
+      - "${AQUILA_GRPC_PORT}:8081"
     profiles:
       - runtime
     networks:
