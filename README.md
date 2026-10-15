@@ -36,7 +36,7 @@ Don't start from a blank canvas. Describe what you want or pick a smart template
 
 And it doesn't stop at generation. You can refine, extend, or rewrite any part of your flow with a single prompt, right on the canvas.
 
-![Editing a flow with AI](images/CodeZero_AI.gif)
+![Editing a flow with AI](images/Codezero_Flow_Overview.png)
 
 Bring your own model: plug in OpenAI, OpenRouter, or any compatible provider and choose which models power your workspace.
 
